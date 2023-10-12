@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 const val ARTICLE_EXTRA = "ARTICLE_EXTRA"
 private const val TAG = "ArticleAdapter"
 
-class ArticleAdapter(private val context: Context, private val articles: List<Article>) :
+class ArticleAdapter(private val context: Context, private val articles: List<DisplayArticle>) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
 
@@ -37,9 +37,9 @@ class ArticleAdapter(private val context: Context, private val articles: List<Ar
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        private val mediaImageView = itemView.findViewById<ImageView>(R.id.mediaImage)
-        private val titleTextView = itemView.findViewById<TextView>(R.id.mediaTitle)
-        private val abstractTextView = itemView.findViewById<TextView>(R.id.mediaAbstract)
+        private val mediaImageUrl = itemView.findViewById<ImageView>(R.id.mediaImage)
+        private val headline = itemView.findViewById<TextView>(R.id.mediaTitle)
+        private val abstract = itemView.findViewById<TextView>(R.id.mediaAbstract)
 
         init {
             itemView.setOnClickListener(this)
@@ -58,13 +58,13 @@ class ArticleAdapter(private val context: Context, private val articles: List<Ar
 
         }
 
-        fun bind(article: Article) {
-            titleTextView.text = article.headline?.main
-            abstractTextView.text = article.abstract
+        fun bind(article: DisplayArticle) {
+            headline.text = article.headline
+            abstract.text = article.abstract
 
             Glide.with(context)
                 .load(article.mediaImageUrl)
-                .into(mediaImageView)
+                .into(mediaImageUrl)
         }
     }
 }
